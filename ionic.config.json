@@ -1,0 +1,7 @@
+{
+  "name": "binder",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
