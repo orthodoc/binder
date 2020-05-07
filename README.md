@@ -12,5 +12,11 @@ Basic
 * Github settings: Make dev branch the default branch. Set up rule to protect the master branch: Require status checks before merging, require signed commits and make sure rule applies to all admins as well.
 
 Commitizen
-* npm i -D commitizen
+* `npm i -D commitizen`
+* `npx commitizen init cz-conventional-changelog --save-dev --save-exact`
+* `npx git-cz`
+
+Husky
+* npm i -D husky
+* Add husky config to run git-cz as a pre commit git hook
 
