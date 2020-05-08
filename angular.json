@@ -141,6 +141,11 @@
           "configurations": {
             "production": {
               "devServerTarget": "app:serve:production"
+            },
+            "ci": {
+              "devServerTarget": "app:serve:ci",
+              "headless": true,
+              "watch": false
             }
           }
         },
@@ -164,30 +169,6 @@
           "configurations": {
             "production": {
               "cordovaBuildTarget": "app:ionic-cordova-build:production",
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "cypress-run": {
-          "builder": "@briebug/cypress-schematic:cypress",
-          "options": {
-            "devServerTarget": "app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@briebug/cypress-schematic:cypress",
-          "options": {
-            "devServerTarget": "app:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
               "devServerTarget": "app:serve:production"
             }
           }
