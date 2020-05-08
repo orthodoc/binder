@@ -34,5 +34,7 @@ jobs:
           run: npm run lint
         - name: Test
           run: npm run ci-test
+        - name: Verify
+          run: npm run cy-verify
         - name: E2E
           run: npm run ci-e2e
