@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:4200",
+  "env": {},
+  "reporter": "spec",
+  "testFiles": "**/*.spec.ts",
+  "pluginsFile": false,
+  "supportFile": "cypress/support/index.ts",
+  "video": false
+}
