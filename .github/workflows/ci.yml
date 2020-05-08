@@ -10,12 +10,11 @@ on:
 jobs:
   test:
     name: Run tests on node ${{ matrix.node_version }} and {{ matrix.os}}
-    build:
-      runs-on: ${{ matrix.os }}
-      strategy:
-        matrix:
-          node_version: [12.x]
-          os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [12.x]
+        os: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node_version }}
