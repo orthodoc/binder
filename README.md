@@ -1,4 +1,4 @@
-![](https://github.com/orthodoc/binder/workflows/.github/test.yml/badge.svg?branch=master)
+![](https://github.com/orthodoc/binder/workflows/CI/badge.svg?branch=dev)
 
 \*\* Steps to reproduce
 
@@ -47,4 +47,8 @@ Replace protractor with Cypress
 - Add ci-e2e to pre commit hook
 - Add `.prettierrc` to accept singleQuotes
 
-Set up git hub actions
+Github actions
+
+- Set up the ci.yml file at `.github/workflows`
+- Add `.github/workflows/*.yml` to `.prettierignore`
+
