@@ -29,6 +29,11 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+/firebase/www
+/resources/android/icon
+/resources/android/splash
+/resources/ios/icon
+/resources/ios/splash
 
 cypress/videos/**
 cypress/screenshots/**
