@@ -2,51 +2,55 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-describe('AppComponent', () => {
+import { Plugins } from '@capacitor/core';
 
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
+describe('AppComponent', () => {
+  const platformStub = {
+    ready: jasmine.createSpy('ready').and.callThrough(),
+    is: jasmine.createSpy('is').and.returnValue('capacitor'),
+  };
 
   beforeEach(async(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
-    platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
-
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy },
-      ],
-      imports: [ RouterTestingModule.withRoutes([])],
+      providers: [{ provide: Platform, useValue: platformStub }],
+      imports: [RouterTestingModule.withRoutes([])],
     }).compileComponents();
   }));
 
-  it('should create the app', async () => {
+  function setup() {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    fixture.detectChanges();
+    const component = fixture.debugElement.componentInstance;
+    return { fixture, component };
+  }
+
+  it('should create the app', async () => {
+    const component = setup();
+    expect(component).toBeTruthy();
   });
 
   it('should initialize the app', async () => {
-    TestBed.createComponent(AppComponent);
-    expect(platformSpy.ready).toHaveBeenCalled();
-    await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    const { SplashScreen } = Plugins;
+    const { component } = setup();
+    await component.initializeApp();
+    expect(platformStub.ready).toHaveBeenCalled();
+    if (platformStub.is('capacitor')) {
+      expect(SplashScreen.hide());
+    }
+    const splashScreenElement: HTMLElement = document.getElementById(
+      'splash-screen'
+    );
+    expect(splashScreenElement).toBeNull();
   });
 
   it('should have menu labels', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
+    const { fixture } = setup();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-label');
     expect(menuItems.length).toEqual(12);
@@ -55,13 +59,15 @@ describe('AppComponent', () => {
   });
 
   it('should have urls', async () => {
-    const fixture = await TestBed.createComponent(AppComponent);
-    await fixture.detectChanges();
+    const { fixture } = setup();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-item');
     expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/folder/Inbox');
-    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/folder/Outbox');
+    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual(
+      '/folder/Inbox'
+    );
+    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual(
+      '/folder/Outbox'
+    );
   });
-
 });
