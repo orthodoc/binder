@@ -45,3 +45,6 @@ serviceAccount.json
 
 google-services.json
 GoogleService-Info.plist
+
+firebase/functions/.dev.config.json
+firebase/functions/.prod.config.json
