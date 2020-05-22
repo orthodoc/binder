@@ -39,7 +39,7 @@ cypress/videos/**
 cypress/screenshots/**
 !cypress/plugins/**
 
-src/environments/environment.prod.ts
+src/environments/**
 
 serviceAccount.json
 
