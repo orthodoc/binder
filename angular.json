@@ -31,6 +31,11 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
+              {
+                "glob": "{libfoundation,libpythia}.browser.wasm",
+                "input": "node_modules/@virgilsecurity/e3kit-browser/dist",
+                "output": "."
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
@@ -126,6 +131,11 @@
                 "input": "src/assets",
                 "output": "/assets"
               },
+              {
+                "glob": "{libfoundation,libpythia}.browser.wasm",
+                "input": "node_modules/@virgilsecurity/e3kit-browser/dist",
+                "output": "."
+              },
               "src/manifest.webmanifest"
             ]
           },
@@ -145,9 +155,7 @@
               "tsconfig.spec.json",
               "cypress/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {

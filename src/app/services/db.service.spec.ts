@@ -16,7 +16,7 @@ describe('DbService', () => {
   );
 
   it('should be created', () => {
-    const service: DbService = TestBed.get(DbService);
+    const service: DbService = TestBed.inject(DbService);
     expect(service).toBeTruthy();
   });
 });

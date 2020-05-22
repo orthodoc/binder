@@ -1,0 +1,13 @@
+## Compiled JavaScript files
+**/*.js
+**/*.js.map
+!json-parser.js
+
+# Typescript v1 declaration files
+typings/
+
+# config
+.prod.config.json
+
+#service account
+service-account.json

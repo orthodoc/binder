@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "binder-20",
+    "prod": "binder-prod",
+    "dev": "binder-20"
+  }
+}

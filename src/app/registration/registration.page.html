@@ -1,0 +1,46 @@
+<ion-header mode="ios" translucent="true" class="ion-no-border">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size-md="4" offset-md="4" class="ion-text-center">
+        <div class="logo=container">
+          <img src="assets/img/logo.png" width="256" alt="logo" id="signup-logo">
+        </div>
+        <form [formGroup]="signupEmailForm" (submit)="signupUser()" class="ion-margin">
+          <ion-list lines="none" class="ion-no-padding">
+            <ion-item class="email">
+              <ion-label>
+                <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+              </ion-label>
+              <ion-input formControlName="email" type="email" placeholder="arun@gmail.com" id="signup-email"></ion-input>
+            </ion-item>
+            <ion-item class="error-message ion-text-wrap" *ngIf="!signupEmailForm.controls.email.valid && signupEmailForm.controls.email.touched">
+              <p>You need to enter a valid email address</p>
+            </ion-item>
+            <ion-item color="light" class="spacer"></ion-item>
+            <ion-item class="password">
+              <ion-label>
+                <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+              </ion-label>
+              <ion-input formControlName="password" [type]="getPasswordFieldType()" [placeholder]="getPasswordPlaceholder()" id="signup-password"></ion-input>
+              <ion-button (click)="togglePasswordFieldType()" fill="clear">
+                <ion-icon [name]="getIconName()" color="primary" slot="end"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-item class="error-message ion-text-wrap" *ngIf="!signupEmailForm.controls.password.valid && signupEmailForm.controls.password.touched">
+              <p>Your password needs to be at least 6 characters long!</p>
+            </ion-item>
+            <ion-item color="light" class="spacer"></ion-item>
+          </ion-list>
+          <ion-button class="ion-strong ion-margin-top" color="secondary" type="submit" id="signup-button" [disabled]="signupEmailForm.touched && !signupEmailForm.valid">Signup</ion-button>
+        </form>
+        <ion-button fill="clear" expand="full" size="small" color="primary" href="/home" id="home-button">Login</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

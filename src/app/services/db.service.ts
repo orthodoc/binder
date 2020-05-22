@@ -16,7 +16,7 @@ export class DbService {
       .pipe(
         map((actions) => {
           return actions.map((a) => {
-            const data: Object = a.payload.doc.data();
+            const data: any = a.payload.doc.data();
             const id: string = a.payload.doc.id;
             return { id, ...data };
           });
@@ -39,7 +39,7 @@ export class DbService {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  updateAt(path: string, data: Object): Promise<any> {
+  updateAt(path: string, data: any): Promise<any> {
     const segments = path.split('/').filter((v) => v);
     if (segments.length % 2) {
       // odd is always a collection
@@ -51,11 +51,11 @@ export class DbService {
     }
   }
 
-  update(path: string, data: Object): Promise<any> {
+  update(path: string, data: any): Promise<any> {
     return this.afs.doc(path).update({ ...data, updatedAt: this.timestamp });
   }
 
-  set(path: string, data: Object): Promise<any> {
+  set(path: string, data: any): Promise<any> {
     return this.afs
       .doc(path)
       .set(
@@ -68,7 +68,7 @@ export class DbService {
     return this.afs.doc(path).ref;
   }
 
-  async upsert(path: string, data: Object): Promise<any> {
+  async upsert(path: string, data: any): Promise<any> {
     const doc = await this.docRef(path).get();
     doc.exists ? this.update(path, data) : this.set(path, data);
   }

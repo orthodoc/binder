@@ -39,4 +39,9 @@ cypress/videos/**
 cypress/screenshots/**
 !cypress/plugins/**
 
-src/environments/**
+src/environments/environment.prod.ts
+
+serviceAccount.json
+
+google-services.json
+GoogleService-Info.plist
