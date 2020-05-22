@@ -40,6 +40,7 @@ cypress/screenshots/**
 !cypress/plugins/**
 
 src/environments/**
+!src/environments/*.gpg
 
 serviceAccount.json
 
@@ -48,3 +49,4 @@ GoogleService-Info.plist
 
 firebase/functions/.dev.config.json
 firebase/functions/.prod.config.json
+!firebase/functions/*.gpg
