@@ -60,6 +60,7 @@
     "@capacitor/cli": "2.1.0",
     "@cypress/webpack-preprocessor": "5.2.0",
     "@ionic/angular-toolkit": "^2.1.1",
+    "@ionic/lab": "3.1.6",
     "@types/jasmine": "^3.3.16",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
