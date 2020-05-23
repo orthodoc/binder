@@ -12,30 +12,20 @@ const { SplashScreen } = Plugins;
 })
 export class AppComponent implements OnInit {
   constructor(private platform: Platform) {
-    this.initializeApp();
-  }
-
-  async initializeApp() {
-    await this.platform.ready();
-    if (this.platform.is('capacitor')) {
-      SplashScreen.hide();
-    }
-    this.handleSplashScreen();
   }
 
   ngOnInit() {
-    /* const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(
-        (page) => page.title.toLowerCase() === path.toLowerCase()
-      );
-    } */
+    this.handleSplashScreen();
   }
 
   async handleSplashScreen() {
     const splashScreen: HTMLElement = document.getElementById('splash-screen');
+    await this.platform.ready();
+    if (this.platform.is('capacitor')) {
+      SplashScreen.hide();
+    }
     setTimeout(() => {
       splashScreen.remove();
-    }, 1503);
+    }, 705);
   }
 }
