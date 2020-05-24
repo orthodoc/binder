@@ -38,7 +38,7 @@ describe('AppComponent', () => {
   it('should initialize the app', async () => {
     const { SplashScreen } = Plugins;
     const { component } = setup();
-    await component.initializeApp();
+    await component.ngOnInit();
     expect(platformStub.ready).toHaveBeenCalled();
     if (platformStub.is('capacitor')) {
       expect(SplashScreen.hide());
