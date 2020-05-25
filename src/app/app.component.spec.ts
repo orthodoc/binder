@@ -30,6 +30,11 @@ describe('AppComponent', () => {
     return { fixture, component };
   }
 
+  afterEach(() => {
+    const { fixture, component } = setup();
+    fixture.destroy();
+  });
+
   it('should create the app', async () => {
     const component = setup();
     expect(component).toBeTruthy();

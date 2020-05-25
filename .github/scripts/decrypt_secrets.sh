@@ -3,6 +3,7 @@
 # Decrypt the file
 # --batch to prevent interactive command
 # --yes to assume "yes" for questions
+#
 # dev config json file for firebase functions
 gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
 --output ./firebase/functions/.dev.config.json ./firebase/functions/.dev.config.json.gpg
@@ -12,3 +13,9 @@ gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
 # dev environment file
 gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
 --output ./src/environments/environment.ts ./src/environments/environment.ts.gpg
+# service account json
+gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
+--output ./serviceAccount.json ./serviceAccount.json.gpg
+# cypress env json
+gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
+--output ./cypress/cypress.env.json ./cypress/cypress.env.json.gpg

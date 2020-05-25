@@ -88,11 +88,11 @@ declare namespace Cypress {
      * which is generated using firebase-admin authenticated with serviceAccount
      * during test:buildConfig phase.
      * @type {Cypress.Command}
-     * @name cy.removeTestUser()
+     * @name cy.removeSignupUser()
      * @example
-     * cy.removeTestUser()
+     * cy.removeSignupUser()
      */
-    removeTestUser(): Chainable<any>;
+    removeSignupUser(): Chainable<any>;
 
     /**
      * Login to Firebase auth using FIREBASE_AUTH_JWT environment variable

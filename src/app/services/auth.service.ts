@@ -44,8 +44,20 @@ export class AuthService {
       displayName = email.split('@')[0];
     }
     const photoURL = user.photoURL;
-    const profile = { displayName, photoURL };
+    // const profile = { displayName, photoURL };
     const currentUser = await this.afAuth.currentUser;
+    let profile = {};
+    if (currentUser.displayName && currentUser.photoURL) {
+      return;
+    } else if (!currentUser.displayName && !currentUser.photoURL) {
+      profile = { displayName, photoURL };
+    } else if (!currentUser.displayName && currentUser.photoURL) {
+      profile = { displayName, photoURL: currentUser.photoURL };
+    } else if (currentUser.displayName && !currentUser.photoURL) {
+      profile = { displayName: currentUser.displayName, photoURL };
+    } else {
+      return;
+    }
     currentUser.updateProfile(profile);
   }
 
@@ -89,7 +101,7 @@ export class AuthService {
         email,
         password
       );
-      await this.updateAuthProfile(userCredential.user);
+      // await this.updateAuthProfile(userCredential.user);
       await this.updateUserData(userCredential.user);
       await this.sendVerificationEmail();
       await this.storage.set('registrationComplete', true);
@@ -109,9 +121,10 @@ export class AuthService {
         email,
         password
       );
-      await this.updateUserData(userCredential.user);
-      const currentUser = this.afAuth.currentUser;
-      if (!(await currentUser).emailVerified) {
+      // await this.updateUserData(userCredential.user);
+      const currentUser = await this.afAuth.currentUser;
+      console.log(currentUser.photoURL);
+      if (!currentUser.emailVerified) {
         this.sendVerificationEmail();
       }
     } catch (err) {

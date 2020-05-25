@@ -1,0 +1,50 @@
+<ng-container *ngIf="(auth.user$ | async) as user; else login">
+  <app-profile [user]="user"></app-profile>
+</ng-container>
+
+<ng-template #login>
+  <ion-header mode="ios" translucent="true" class="ion-no-border">
+    <ion-toolbar></ion-toolbar>
+  </ion-header>
+  <ion-content [fullscreen]="true" [scrollY]="false">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size-md="4" offset-md="4" class="ion-text-center">
+          <div class="logo-container">
+            <img src="assets/img/logo.png" width="256" alt="logo image" id="login-logo" />
+          </div>
+          <form [formGroup]="loginForm" (submit)="loginUser()" id="login-form" class="ion-margin">
+            <ion-list lines="none" class="ion-no-padding">
+              <ion-item class="email">
+                <ion-label>
+                  <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="email" type="email" placeholder="arun@gmail.com" id="login-email"></ion-input>
+              </ion-item>
+              <ion-item class="error-message ion-text-wrap" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.touched">
+                <p>You have to enter a valid email</p>
+              </ion-item>
+              <ion-item color="light" class="spacer" lines="none"></ion-item>
+              <ion-item class="password">
+                <ion-label>
+                  <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+                </ion-label>
+                <ion-input formControlName="password" [type]="getPasswordFieldType()" [placeholder]="getPasswordPlaceholder()" id="login-password"></ion-input>
+                <ion-button (click)="togglePasswordFieldType()" fill="clear">
+                  <ion-icon [name]="getIconName()" color="primary" slot="end"></ion-icon>
+                </ion-button>
+              </ion-item>
+              <ion-item class="error-message ion-text-message" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.touched">
+                <p>Your password has to be more than 6 characters long</p>
+              </ion-item>
+              <ion-item color="light" class="spacer" lines="none"></ion-item>
+            </ion-list>
+            <ion-button class="ion-margin-top ion-strong" color="secondary" type="submit" id="login-button" [disabled]="loginForm.touched && !loginForm.valid">Sign in</ion-button>
+          </form>
+          <ion-button fill="clear" expand="full" size="small" color="primary" (click)="openRegistration()" id="registration-button">Create new account</ion-button>
+          <ion-button fill="clear" expand="full" size="small" color="primary" (click)="openResetPassword()" id="foregot-password-button">Forgot password?</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ng-template>

@@ -5,7 +5,7 @@ import { paths } from './app-paths';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: paths.registration,
+    redirectTo: paths.home,
     pathMatch: 'full',
   },
   {

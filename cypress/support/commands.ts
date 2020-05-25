@@ -2,7 +2,7 @@ import { environment } from '../../src/environments/environment.test';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import attachCustomCommands from 'cypress-firebase/lib/attachCustomCommands';
+import { attachCustomCommands } from 'cypress-firebase/lib';
 
 const fbConfig = environment.firebase;
 
@@ -18,21 +18,13 @@ Cypress.Screenshot.defaults({
   screenshotOnRunFailure: false,
 });
 
-Cypress.Commands.add('removeTestUser', () => {
+Cypress.Commands.add('removeSignupUser', async () => {
   const currentUser = firebase.auth().currentUser;
-  if (currentUser) {
-    if (currentUser.email === environment.testUser.email) {
-      firebase.firestore().doc(`users/${currentUser.uid}`).delete();
-      cy.log(`Test user removed successfully`);
-    } else {
-      cy.log(`Test user is not signed in`);
-    }
-  } else {
-    cy.log(`Cannot remove a user who is not logged in`);
-  }
+  await firebase.firestore().doc(`users/${currentUser.uid}`).delete();
+  await firebase.auth().signOut();
 });
 
-Cypress.Commands.add('waitUntilSettled', () => {
+/* Cypress.Commands.add('waitUntilSettled', () => {
   // Prevent an infinite loop
   const maxTries = 20;
 
@@ -93,4 +85,4 @@ Cypress.Commands.add('waitUntilSettled', () => {
   }
 
   waitAndSee(0);
-});
+}); */

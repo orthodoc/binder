@@ -6,10 +6,6 @@ describe('Registration page', () => {
     cy.get('#splash-screen').should('not.be.visible');
   });
 
-  after(() => {
-    cy.removeTestUser();
-  });
-
   it('should not register user without a valid form', () => {
     cy.get('#signup-email > .native-input').type('bdbaruah');
     cy.get('#signup-password > .native-input').type('bdb');
@@ -22,15 +18,19 @@ describe('Registration page', () => {
 
   it('should successfully signup a user', () => {
     cy.logout();
-    cy.get('#signup-email > .native-input').type(environment.testUser.email);
-    cy.get('#signup-password > .native-input').type(environment.testUser.pwd);
+    cy.get('#signup-email > .native-input').type(
+      environment.testUser.signup.email
+    );
+    cy.get('#signup-password > .native-input').type(
+      environment.testUser.signup.pwd
+    );
     cy.get('#signup-button').click();
     cy.location('pathname', { timeout: 35000 }).should('include', 'home');
     cy.get('#signup-button').should('not.be.visible');
-    cy.removeTestUser();
+    cy.removeSignupUser();
   });
 
-  xit('should return to home page', () => {
+  /* xit('should return to home page', () => {
     cy.get('#home-button').should('be.visible');
     cy.get('#home-button')
       .should('be.visible')
@@ -41,5 +41,5 @@ describe('Registration page', () => {
       .should('be.visible')
       .click('center', { force: true });
     cy.location('pathname', { timeout: 25000 }).should('include', 'home');
-  });
+  }); */
 });

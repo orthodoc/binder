@@ -56,6 +56,11 @@ describe('RegistrationPage', () => {
     return { fixture, component };
   }
 
+  afterEach(() => {
+    const { fixture, component } = setup();
+    fixture.destroy();
+  });
+
   it('should create', () => {
     const { component } = setup();
     expect(component).toBeTruthy();
@@ -69,6 +74,7 @@ describe('RegistrationPage', () => {
   it('email field should be invalid when empty', () => {
     const { component } = setup();
     const email = component.signupEmailForm.controls[emailString];
+    email.setValue('');
     const errors = component.errors || {};
     expect(email.valid).toBeFalsy();
   });
