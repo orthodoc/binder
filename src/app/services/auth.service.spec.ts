@@ -12,6 +12,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DbService } from './db.service';
 import { AlertService } from './alert.service';
+import { EncryptService } from './encrypt.service';
 
 export class RouterMock {
   public navigateByUrl(path: string) {}
@@ -25,6 +26,7 @@ describe('AuthService', () => {
   let credsMock;
   let alert: AlertService;
   let mockUser;
+  let encrypter: EncryptService;
 
   function setup() {
     const credentialsMock = {
@@ -85,6 +87,14 @@ describe('AuthService', () => {
       issueErrAlert: jasmine.createSpy('issueErrAlert').and.callThrough(),
     };
 
+    const encryptServiceStub = {
+      register: jasmine.createSpy('register').and.callThrough(),
+      backupPrivateKey: jasmine.createSpy('backUpPrivateKey').and.callThrough(),
+      restorePrivateKey: jasmine
+        .createSpy('restorePrivateKey')
+        .and.callThrough(),
+    };
+
     return {
       credentialsMock,
       userMock,
@@ -94,6 +104,7 @@ describe('AuthService', () => {
       angularFireAuthStub,
       dbServiceStub,
       alertServiceStub,
+      encryptServiceStub,
     };
   }
 
@@ -104,6 +115,7 @@ describe('AuthService', () => {
       credentialsMock,
       dbServiceStub,
       alertServiceStub,
+      encryptServiceStub
     } = setup();
     TestBed.configureTestingModule({
       imports: [
@@ -118,6 +130,7 @@ describe('AuthService', () => {
         { provide: Storage, useFactory: () => new StorageMock() },
         { provide: DbService, useValue: dbServiceStub },
         { provide: AlertService, useValue: alertServiceStub },
+        { provide: EncryptService, useValue: encryptServiceStub }
       ],
     });
     service = TestBed.inject(AuthService);
@@ -130,6 +143,7 @@ describe('AuthService', () => {
     alert = TestBed.inject(AlertService);
     mockUser = userMock;
     spyOn(service, 'windowReload').and.callThrough();
+    encrypter = TestBed.inject(EncryptService);
   });
 
   afterEach(() => {

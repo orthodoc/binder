@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { AlertService } from './alert.service';
 import { switchMap, take, map } from 'rxjs/operators';
 import firebase from 'firebase/app';
+import { EncryptService } from './encrypt.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class AuthService {
     private db: DbService,
     private router: Router,
     private storage: Storage,
-    public alerter: AlertService
+    public alerter: AlertService,
+    private encrypter: EncryptService
   ) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => (user ? db.doc$(`users/${user.uid}`) : of(null)))
@@ -103,6 +105,8 @@ export class AuthService {
       );
       // await this.updateAuthProfile(userCredential.user);
       await this.updateUserData(userCredential.user);
+      await this.encrypter.register();
+      await this.encrypter.backupPrivateKey(password);
       await this.sendVerificationEmail();
       await this.storage.set('registrationComplete', true);
       return userCredential;
@@ -122,6 +126,7 @@ export class AuthService {
         password
       );
       // await this.updateUserData(userCredential.user);
+      await this.encrypter.restorePrivateKey(password);
       const currentUser = await this.afAuth.currentUser;
       console.log(currentUser.photoURL);
       if (!currentUser.emailVerified) {
