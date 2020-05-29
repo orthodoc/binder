@@ -18,4 +18,4 @@ gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
 --output ./serviceAccount.json ./serviceAccount.json.gpg
 # cypress env json
 gpg --quiet --batch --yes --decrypt --passphrase="$TEST_SECRET_PASSPHRASE" \
---output ./cypress/cypress.env.json ./cypress/cypress.env.json.gpg
+--output ./cypress.env.json ./cypress.env.json.gpg

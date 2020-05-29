@@ -5,8 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { RegistrationPage } from './registration.page';
 import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, UrlSerializer } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { RouterTestingModule } from '@angular/router/testing';
 
 export class LoadingMock {
   public create() {
@@ -36,10 +37,16 @@ describe('RegistrationPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RegistrationPage],
-      imports: [IonicModule.forRoot(), ReactiveFormsModule, FormsModule],
+      imports: [
+        IonicModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule,
+        RouterTestingModule,
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         FormBuilder,
+        UrlSerializer,
         { provide: AuthService, useClass: AuthMock },
         { provide: Router, useClass: RouterMock },
         { provide: LoadingController, useClass: LoadingMock },

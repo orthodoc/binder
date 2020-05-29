@@ -58,10 +58,14 @@ export class RegistrationPage implements OnInit {
   }
 
   getPasswordPlaceholder() {
-    return this.passwordFieldType ? '******' : 'Ad3&jh';
+    return this.passwordFieldType ? 'Password' : 'Ad3&jh';
   }
 
   togglePasswordFieldType() {
     this.passwordFieldType = !this.passwordFieldType;
+  }
+
+  async goToHomePage() {
+    await this.router.navigateByUrl('/home');
   }
 }

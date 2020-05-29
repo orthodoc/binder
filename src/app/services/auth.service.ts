@@ -37,6 +37,10 @@ export class AuthService {
       .toPromise();
   }
 
+  get currentUser() {
+    return this.afAuth.currentUser;
+  }
+
   async updateAuthProfile(user: firebase.User) {
     let displayName = user.displayName;
     if (!displayName) {
@@ -157,6 +161,58 @@ export class AuthService {
       this.db.delete(`users/${currentUser.uid}`);
     } else {
       firebase.auth().currentUser.delete();
+    }
+  }
+
+  async sendPasswordResetEmail(
+    email: string,
+    actionCodeSettings?: firebase.auth.ActionCodeSettings
+  ) {
+    try {
+      await this.afAuth.sendPasswordResetEmail(email, actionCodeSettings);
+      return this.alerter.issueSuccessAlert(
+        'Check your email inbox. Open the link in the email to reset your password',
+        'Request reset password'
+      );
+    } catch (error) {
+      console.error(error);
+      return this.alerter.issueErrAlert(error, 'Request to reset email');
+    }
+  }
+
+  async verifyPasswordResetCode(code: string) {
+    try {
+      return await this.afAuth.verifyPasswordResetCode(code);
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  }
+
+  async confirmPasswordReset(code: string, newPassword: string) {
+    try {
+      await this.afAuth.confirmPasswordReset(code, newPassword);
+    } catch (error) {
+      console.error(error);
+      await this.alerter.issueErrAlert(error, 'Reset password');
+    }
+  }
+
+  async checkActionCode(code: string) {
+    try {
+      return this.afAuth.checkActionCode(code);
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  }
+
+  async applyActionCode(code: string) {
+    try {
+      this.afAuth.applyActionCode(code);
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
     }
   }
 }
