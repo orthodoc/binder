@@ -1,0 +1,134 @@
+<ion-header mode="ios" translucent="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size-md="4" offset-md="4" class="ion-text-center">
+        <div class="reset-logo-container">
+          <img src="assets/img/logo.png" width="256" alt="binder logo" id="reset-logo" />
+        </div>
+        <ng-container *ngIf="mode; else requestForm">
+          <ng-container [ngSwitch]="mode">
+            <ng-container *ngSwitchCase="'resetPassword'">
+              <form [formGroup]="resetPasswordForm" (submit)="handleResetPassword()" novalidate class="ion-margin" id="resetPasswordForm">
+                <ion-list lines="none" class="ion-no-padding">
+                  <ion-list-header>
+                    <ion-label color="primary">Reset password form</ion-label>
+                  </ion-list-header>
+                  <ng-container *ngIf="(auth.user$ | async) as user; else anonymous">
+                    <ion-item class="email">
+                      <ion-label>
+                        <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+                      </ion-label>
+                      <ion-input formControlName="email" type="email" [(ngModel)]="user.email" readonly="true"></ion-input>
+                    </ion-item>
+                    <ion-text class="email-notice" color="medium">Note: You cannot alter the email as you are signed in!!</ion-text>
+                  </ng-container>
+                  <ng-template #anonymous>
+                    <ion-item class="email">
+                      <ion-label>
+                        <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+                      </ion-label>
+                      <ion-input formControlName="email" type="email" placeholder="arun@gmail.com"></ion-input>
+                    </ion-item>
+                    <ion-item class="error-message ion-text-wrap"
+                      *ngIf="!reqPasswordResetForm.controls.email.valid && reqPasswordResetForm.controls.email.touched">
+                      <p>Enter a valid email address</p>
+                    </ion-item>
+                  </ng-template>
+                  <ion-item color="light" class="spacer"></ion-item>
+                  <ng-container *ngIf="(auth.user$ | async) as user; else spacer">
+                    <ion-item class="password">
+                      <ion-label>
+                        <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+                      </ion-label>
+                      <ion-input formControlName="oldPassword" [type]="getPasswordFieldType()"
+                        [placeholder]="getResetOldPasswordPlaceholder()" id="oldPassword"></ion-input>
+                      <ion-button (click)="togglePasswordFieldType()" fill="clear">
+                        <ion-icon [name]="getIconName()" color="primary" slot="end"></ion-icon>
+                      </ion-button>
+                    </ion-item>
+                    <ion-item color="light" class="spacer">
+                    </ion-item>
+                  </ng-container>
+                  <ng-template #spacer>
+                    <ion-item color="light" class="spacer">
+                    </ion-item>
+                  </ng-template>
+                  <ion-item class="password">
+                    <ion-label>
+                      <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+                    </ion-label>
+                    <ion-input formControlName="newPassword" [type]="getPasswordFieldType()" [placeholder]="getResetNewPasswordPlaceholder()" id="newPassword"></ion-input>
+                    <ion-button (click)="togglePasswordFieldType()" fill="clear">
+                      <ion-icon [name]="getIconName()" color="primary" slot="end"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                  <ion-item class="error-message" *ngIf="!resetPasswordForm.controls.newPassword.valid && resetPasswordForm.controls.newPassword.touched">
+                    <p>Password must have a minimum of 6 characters</p>
+                  </ion-item>
+                </ion-list>
+                <ion-button class="ion-strong ion-margin-top" color="secondary" type="submit" [disabled]="resetPasswordForm.controls.email.touched && resetPasswordForm.valid">
+                  Change Password
+                </ion-button>
+              </form>
+            </ng-container>
+            <ng-container *ngSwitchCase="'recoverEmail'">
+              <ion-text color="primary">Recover email</ion-text>
+              <ion-button fill="primary" expand="full" size="small" color="light" id="recoverEmail-message-button">
+                {{ securedEmail ? 'Email secure.' : 'Error in recovering email' }}
+              </ion-button>
+            </ng-container>
+            <ng-container *ngSwitchCase="'verifyEmail'">
+              <ion-text color="primary">Verify email</ion-text>
+              <ion-button fill="clear" expand="full" size="small" color="light" id="verifyEmail-message-button">
+                {{ verifiedEmail ? 'Email verified' : 'Error in verifying email' }}
+              </ion-button>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-template #requestForm>
+          <form [formGroup]="reqPasswordResetForm" (submit)="reqResetPassword()" novalidate class="ion-margin" id="reqPasswordResetForm">
+            <ion-list lines="none" class="ion-no-padding">
+              <ion-list-header>
+                <ion-label color="primary">Request reset password form</ion-label>
+              </ion-list-header>
+              <ng-container *ngIf="(auth.user$ | async) as user; else anonymous">
+                <ion-item class="email">
+                  <ion-label>
+                    <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+                  </ion-label>
+                  <ion-input formControlName="email" type="email" [(ngModel)]="user.email" readonly="true" id="reqResetPassword-email-logged"></ion-input>
+                </ion-item>
+                <ion-text class="email-notice" color="medium">Note: You cannot alter the email as you are signed in!!</ion-text>
+              </ng-container>
+              <ng-template #anonymous>
+                <ion-item class="email">
+                  <ion-label>
+                    <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+                  </ion-label>
+                  <ion-input formControlName="email" type="email" placeholder="arun@gmail.com" id="reqResetPassword-email"></ion-input>
+                </ion-item>
+                <ion-item class="error-message ion-text-wrap"
+                  *ngIf="!reqPasswordResetForm.controls.email.valid && reqPasswordResetForm.controls.email.touched">
+                  <p>Enter a valid email address</p>
+                </ion-item>
+              </ng-template>
+              <ion-item color="light" class="spacer"></ion-item>
+            </ion-list>
+            <ion-button class="ion-strong ion-margin-top" color="secondary" type="submit" [disabled]="reqPasswordResetForm.controls.email.touched && !reqPasswordResetForm.valid" id="reqResetPassword-submit-button">
+              Reset Password
+            </ion-button>
+          </form>
+        </ng-template>
+        <ion-button fill="clear" expand="full" size="small" color="primary" (click)="goToHomePage()" id="reset-home-button">
+          Home
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

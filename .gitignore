@@ -38,7 +38,7 @@ npm-debug.log*
 cypress/videos/**
 cypress/screenshots/**
 !cypress/plugins/**
-cypress/cypress.env.json
+cypress.env.json
 
 src/environments/**
 !src/environments/*.gpg

@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   getPasswordPlaceholder() {
-    return this.passwordFieldType ? '******' : 'Be$t12';
+    return this.passwordFieldType ? 'Password' : 'Be$t12';
   }
 
   togglePasswordFieldType() {
@@ -68,6 +68,6 @@ export class LoginComponent implements OnInit {
   }
 
   async openResetPassword() {
-    await this.router.navigateByUrl('/registration/reset-password');
+    await this.router.navigateByUrl('/registration/reset');
   }
 }

@@ -16,6 +16,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: `${paths.registration}/reset`,
+    loadChildren: () =>
+      import('./registration/reset/reset.module').then(
+        (m) => m.ResetPageModule
+      ),
+  },
+  {
     path: paths.home,
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),

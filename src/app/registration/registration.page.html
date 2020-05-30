@@ -7,7 +7,7 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size-md="4" offset-md="4" class="ion-text-center">
-        <div class="logo=container">
+        <div class="logo-container">
           <img src="assets/img/logo.png" width="256" alt="logo" id="signup-logo">
         </div>
         <form [formGroup]="signupEmailForm" (submit)="signupUser()" class="ion-margin">
@@ -38,7 +38,7 @@
           </ion-list>
           <ion-button class="ion-strong ion-margin-top" color="secondary" type="submit" id="signup-button" [disabled]="signupEmailForm.touched && !signupEmailForm.valid">Signup</ion-button>
         </form>
-        <ion-button fill="clear" expand="full" size="small" color="primary" href="/home" id="home-button">Login</ion-button>
+        <ion-button fill="clear" expand="full" size="small" color="primary" (click)="goToHomePage()" id="home-button">Login</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

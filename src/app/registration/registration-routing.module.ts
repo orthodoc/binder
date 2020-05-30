@@ -8,6 +8,11 @@ const routes: Routes = [
     path: '',
     component: RegistrationPage,
   },
+  {
+    path: 'reset',
+    loadChildren: () =>
+      import('./reset/reset.module').then((m) => m.ResetPageModule),
+  },
 ];
 
 @NgModule({

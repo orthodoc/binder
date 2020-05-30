@@ -3,12 +3,13 @@ ion-avatar {
   height: 50%;
   margin: auto;
   max-width: 120px;
+  margin-top: 1rem;
 }
-/* ion-card-title {
-    --color: #1b1b1b;
-    font-weight: 400;
+ion-card-title {
+  --color: #1b1b1b;
+  font-weight: 400;
 }
 ion-card-subtitle {
-    --color: #949393;
-    text-transform: lowercase;
-} */
+  --color: #949393;
+  text-transform: lowercase;
+}
