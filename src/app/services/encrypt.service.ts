@@ -3,19 +3,19 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { Storage } from '@ionic/storage';
 import jwtDecode from 'jwt-decode';
-import { EThree } from '@virgilsecurity/e3kit-browser/dist'
+import { EThree } from '@virgilsecurity/e3kit-browser/dist/browser.es';
 const ab2Str = require('arraybuffer-to-string');
-import { take, map } from 'rxjs/operators'
+import { take, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EncryptService {
   constructor(
-    public afAuth: AngularFireAuth, 
+    public afAuth: AngularFireAuth,
     public storage: Storage,
     public afFunc: AngularFireFunctions
-    ) {}
+  ) {}
 
   // prettier-ignore
   private getVirgilJwt = () => async () => {
