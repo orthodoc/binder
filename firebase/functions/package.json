@@ -20,7 +20,7 @@
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
     "virgil-crypto": "^4.1.2",
-    "virgil-sdk": "^6.1.1"
+    "virgil-sdk": "^6.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
